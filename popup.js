@@ -1,22 +1,23 @@
-let changeColor = document.getElementById('changeColor');
+let button_activate = document.getElementById('activate');
 
 chrome.storage.sync.get('color', function(data) {
-	changeColor.style.backgroundColor = data.color;
-	changeColor.setAttribute('value', data.color);
+	button_activate.style.backgroundColor = data.color;
+	button_activate.setAttribute('value', data.color);
 });
-changeColor.onclick = function(element) {
+button_activate.onclick = function(element) {
     let color = element.target.value;
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.executeScript(
           tabs[0].id,
           {code: 'document.body.style.backgroundColor = "' + color + '";'});
     });
+	chrome.tabs.create({'url': "https://www.uvic.ca/mypage/f/my-home/p/mycourses"});
   };
 
 function onPageDetailsReceived(pageDetails) {
     document.getElementById('log').innerText = pageDetails.courses;
-	console.log("I tried");
-	console.log(pageDetails.courses);
+	alert("I tried");
+	alert(pageDetails.courses);
 	
 }
 window.addEventListener('load', function(evt) {

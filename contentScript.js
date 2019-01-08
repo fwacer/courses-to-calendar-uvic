@@ -1,10 +1,8 @@
-chrome.runtime.sendMessage({
-    'courses': document.getElementsByName('uvic-myCourses-results-list')
-});
-console.log("hi!");
+/*console.log("hi!");
 console.log(document.getElementsByClassName('uvic-myCourses-results-list-table'));
 console.log(document.getElementById('uvic-myCourses-results-list-table'));
-console.log(document.getElementById('content').getElementsByTagName('section')[0]);
+console.log(document.getElementById('content').getElementsByTagName('section')[0]);*/
+
 let rawTable = document.getElementById('content')
 	.firstChild.nextSibling
 	.firstChild.nextSibling
@@ -26,8 +24,8 @@ for (i = 0; i < rawTable.rows.length-1; i+=2){
 	let course = {
 		'title': row.cells[1].innerText,
 		'type': row.cells[2].innerText,
-		'times': row.cells[3].firstChild.data.replace(/\s+/g, ' ').trim(),//.childNodes[0],
-		'location': row.cells[3].firstChild.nextSibling.innerText//.childNodes[1]
+		'times': row.cells[3].firstChild.data.replace(/\s+/g, ' ').trim(), // Regex stolen from https://stackoverflow.com/questions/22921242/remove-carriage-return-and-space-from-a-string
+		'location': row.cells[3].firstChild.nextSibling.innerText
 	};
 	row = rawTable.rows[i+1].cells[2];
 	//console.log(row.childNodes);
@@ -36,8 +34,12 @@ for (i = 0; i < rawTable.rows.length-1; i+=2){
 	course['start'] = row.childNodes[6].data.trim();
 	course['end'] = row.childNodes[8].data.trim();
 	
-	courseList.push(course);	
+	courseList.push(course);
 }
 
-console.log(JSON.stringify(courseList));
+//console.log(JSON.stringify(courseList));
 console.log(courseList);
+
+chrome.runtime.sendMessage({
+    'courses': courseList
+});
