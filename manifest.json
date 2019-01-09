@@ -2,7 +2,7 @@
     "name": "UVic Courses to Calendar",
     "version": "1.0",
     "description": "Convert your courses to calendar events with the click of a button!",
-    "permissions": ["activeTab", "downloads", "https://www.uvic.ca/mypage/f/my-home/p/mycourses*", "declarativeContent", "storage"],
+    "permissions": ["activeTab", "downloads", "notifications", "https://www.uvic.ca/mypage/f/my-home/p/mycourses*", "declarativeContent", "storage"],
     "background": {
         "scripts":["ics.js-master/ics.deps.min.js", "background.js"],
         "persistent": false
@@ -15,12 +15,6 @@
       "48": "images/get_started48.png",
       "128": "images/get_started128.png"
     },
-    "content_scripts": [
-        {
-            "matches": ["https://www.uvic.ca/mypage/f/my-home/p/mycourses*"],
-            "run_at": "document_idle",
-            "js": ["contentScript.js"]
-        }
-    ],
+    
     "manifest_version": 2
 }
